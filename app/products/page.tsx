@@ -1,13 +1,14 @@
-import { ReactElement } from "react"
-import { BoxIcon, Hash, Search, TagIcon } from "lucide-react"
+import { ReactElement } from "react";
+import { BoxIcon, Hash, Search, TagIcon } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import { FadeIn } from "@/components/cult/fade-in"
-import { GradientHeading } from "@/components/cult/gradient-heading"
+
+
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { FadeIn } from "@/components/cult/fade-in";
+import { GradientHeading } from "@/components/cult/gradient-heading";
 import { ResourceCardGrid } from "@/components/directory-card-grid"
 
-import { NavSidebar } from "../../components/nav"
 import { getCachedFilters } from "../actions/cached_actions"
 import { getProducts } from "../actions/product"
 
@@ -29,12 +30,6 @@ export default async function ProductsPage({
 
   return (
     <>
-      <NavSidebar
-        categories={filters.categories}
-        labels={filters.labels}
-        tags={filters.tags}
-      />
-
       <div className=" max-w-full pt-4">
         <FadeIn>
           <ResourceCardGrid sortedData={data} filteredFeaturedData={null}>

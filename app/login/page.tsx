@@ -1,4 +1,3 @@
-import { LogoAnimationLink } from "@/components/nav"
 
 import { LoginForm } from "./form"
 
@@ -9,9 +8,6 @@ export default async function LoginPage({
 }) {
   return (
     <div>
-      <div className="absolute top-2 left-2 ">
-        <LogoAnimationLink />
-      </div>
       <div className="w-full flex flex-col items-center justify-center gap-2  pt-24">
         <LoginForm />
 

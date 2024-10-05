@@ -5,8 +5,6 @@ import localFont from "next/font/local"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 
-import { ThemeProvider } from "./providers"
-
 export const fontSans = localFont({
   src: "../fonts/haskoy.ttf",
   variable: "--font-sans",
@@ -41,21 +39,14 @@ export const metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${fontSans.variable} font-sans  `}>
+    <html lang="en" className={`${fontSans.variable} font-sans`}>
       <body>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
           <TooltipProvider>
-            <main className="bg-[#FAFAFA] dark:bg-background  text-foreground flex flex-col justify-center items-center w-full pt-13">
-              <div className=" w-full ">{children}</div>
+            <main className="bg-[#FAFAFA] text-foreground flex flex-col justify-center items-center w-full pt-13">
+              <div className="w-full">{children}</div>
             </main>
           </TooltipProvider>
           <Toaster richColors />
-        </ThemeProvider>
       </body>
     </html>
   )
