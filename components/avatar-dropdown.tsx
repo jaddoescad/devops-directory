@@ -53,7 +53,7 @@ export function UserAvatar({ user }: { user: any }) {
       >
         <div className="p-[1px] bg-background rounded-md">
           <DropdownMenuItem>
-            <Link href="/account">Account</Link>
+            <Link href="/account">Account Settings</Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator className="bg-primary" />
           <DropdownMenuItem>
