@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { BoxIcon, ChevronDown, Hash, PlusIcon, TagIcon, Menu, X } from "lucide-react"
 import { useState } from "react"
+import Image from "next/image"
 
 import { cn, truncateString } from "@/lib/utils"
 
@@ -11,6 +12,7 @@ import { UserAvatar } from "./avatar-dropdown"
 import { DirectorySearch } from "./directory-search"
 import { Button } from "./ui/button"
 import * as Popover from '@radix-ui/react-popover'
+import logo from "@/assets/logo.png"
 
 export function NavigationBar({
   categories,
@@ -32,7 +34,9 @@ export function NavigationBar({
       <div className="hidden md:block">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4 w-1/3">
-            <h1 className="text-xl font-bold">CourseHero</h1>
+            <Link href="/" className="flex items-center">
+              <Image src={logo} alt="Logo" width={175} height={100} />
+            </Link>
             <NavDropdown
               title="Categories"
               items={categories}
@@ -83,7 +87,9 @@ export function NavigationBar({
             <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               <Menu />
             </Button>
-            <h1 className="text-xl font-bold">CourseHero</h1>
+            <Link href="/" className="flex items-center">
+              <Image src="/assets/logo.png" alt="Logo" width={24} height={24} />
+            </Link>
           </div>
           <div className="flex items-center space-x-2">
             <Button variant="default" size="sm" asChild className="bg-black text-white hover:bg-black/90">
