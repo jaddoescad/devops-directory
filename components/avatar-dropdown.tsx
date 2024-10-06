@@ -26,11 +26,25 @@ export function UserAvatar({ user }: { user: any }) {
     }
   }
 
+  // Function to get initials or first letter of email
+  const getAvatarText = (user: any) => {
+    if (user.user_metadata?.full_name) {
+      return user.user_metadata.full_name
+        .split(' ')
+        .map((n: string) => n[0])
+        .join('')
+        .toUpperCase()
+    }
+    return user.email ? user.email[0].toUpperCase() : '?'
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
         <Avatar>
-          <AvatarFallback className="bg-gradient-to-r from-yellow-300 to-yellow-300" />
+          <AvatarFallback className="bg-gradient-to-r from-yellow-300 to-yellow-300">
+            {getAvatarText(user)}
+          </AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -38,10 +52,8 @@ export function UserAvatar({ user }: { user: any }) {
         className="bg-gradient-to-t from-primary/70 to-primary/80 rounded-lg"
       >
         <div className="p-[1px] bg-background rounded-md">
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuSeparator className="bg-primary" />
           <DropdownMenuItem>
-            <Link href="/admin">Admin</Link>
+            <Link href="/account">Account</Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator className="bg-primary" />
           <DropdownMenuItem>
