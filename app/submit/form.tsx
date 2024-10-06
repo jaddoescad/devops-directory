@@ -64,7 +64,6 @@ export const SubmitTool = () => {
     defaultValues: {
       fullName: "",
       email: "",
-      twitterHandle: "",
       productWebsite: "",
       codename: "",
       punchline: "",
@@ -110,6 +109,10 @@ export const SubmitTool = () => {
         action={formAction}
         onSubmit={(evt) => {
           evt.preventDefault()
+          if (!form.formState.isValid) {
+            toast.error("Please fill out all required fields correctly.")
+            return
+          }
           setLoading(true)
           toast.promise(p, { loading: "Submitting..." })
           form.handleSubmit(async (data) => {
@@ -156,25 +159,12 @@ export const SubmitTool = () => {
           />
           <FormField
             control={form.control}
-            name="twitterHandle"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Your Twitter handle</FormLabel>
-                <FormControl>
-                  <Input placeholder="Your Twitter handle" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
             name="productWebsite"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Product website</FormLabel>
+                <FormLabel>Course website</FormLabel>
                 <FormControl>
-                  <Input placeholder="Your product url" {...field} />
+                  <Input placeholder="Your course url" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -183,16 +173,16 @@ export const SubmitTool = () => {
         </div>
 
         <GradientHeading size="xs">
-          Tell us more about your product
+          Tell us more about your course
         </GradientHeading>
         <FormField
           control={form.control}
           name="codename"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Your product's name</FormLabel>
+              <FormLabel>Your Course name</FormLabel>
               <FormControl>
-                <Input placeholder="Your product's codename" {...field} />
+                <Input placeholder="Your course's codename" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -203,9 +193,9 @@ export const SubmitTool = () => {
           name="punchline"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Your product's punchline (&lt;10 words)</FormLabel>
+              <FormLabel>Your course's punchline (&lt;10 words)</FormLabel>
               <FormControl>
-                <Input placeholder="Your product's punchline" {...field} />
+                <Input placeholder="Your course's punchline" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -247,7 +237,7 @@ export const SubmitTool = () => {
           name="categories"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Product Category</FormLabel>
+              <FormLabel>Course Category</FormLabel>
               <Select
                 onValueChange={field.onChange}
                 defaultValue={field.value}
@@ -277,11 +267,11 @@ export const SubmitTool = () => {
           )}
         />
 
-        {isValid && (
+        {/* {isValid && ( */}
           <StyledButton disabled={loading} type="submit">
             Submit
           </StyledButton>
-        )}
+        {/* )} */}
       </form>
     </Form>
   )

@@ -30,18 +30,18 @@ export default async function ProtectedSubmitPage(): Promise<ReactElement> {
       <div className="flex flex-col md:flex-row items-start justify-center py-12 px-4 md:px-0">
         <div className="flex flex-col items-start justify-center gap-2 md:pl-48">
           <div className="flex items-center space-x-2">
-            <h1 className="text-5xl font-black ">_submit</h1>
+            <h1 className="text-5xl font-black ">_submit course</h1>
           </div>
           <div className="flex flex-col items-start mt-4">
             <div className="flex items-center mt-2">
               <span className="mx-2 text-xl font-bold">
-                Submit your tool for approval
+                Share your knowledge with the world
               </span>
             </div>
-            <div className="flex  items-center gap-1 pl-3">
-              <p className="mt-2 text-left text-gray-600  text-pretty">
-                Submit products. Build backlinks. <br />
-                Grow seo reach. Get paid.
+            <div className="flex items-center gap-1 pl-3">
+              <p className="mt-2 text-left text-gray-600 text-pretty">
+                Share your expertise. Inspire learners. <br />
+                Expand your reach. Grow your audience.
               </p>
             </div>
           </div>

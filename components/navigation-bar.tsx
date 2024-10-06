@@ -58,9 +58,9 @@ export function NavigationBar({
               searchParams={searchParams}
               paramName="label"
             />
-            <Button variant="secondary" asChild>
+            <Button variant="default" asChild className="bg-black text-white hover:bg-black/90">
               <Link href="/submit">
-                Submit tool
+                Submit Course
               </Link>
             </Button>
             {user ? (
@@ -86,7 +86,7 @@ export function NavigationBar({
             <h1 className="text-xl font-bold">CourseHero</h1>
           </div>
           <div className="flex items-center space-x-2">
-            <Button variant="secondary" size="sm" asChild>
+            <Button variant="default" size="sm" asChild className="bg-black text-white hover:bg-black/90">
               <Link href="/submit">Submit</Link>
             </Button>
             {user ? (

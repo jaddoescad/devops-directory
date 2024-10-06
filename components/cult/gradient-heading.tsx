@@ -10,8 +10,8 @@ const headingVariants = cva(
     variants: {
       variant: {
         default:
-          " bg-gradient-to-t from-stone-800 to-neutral-800 dark:from-stone-200 dark:to-neutral-200",
-        pink: " bg-gradient-to-t from-pink-300 to-pink-400 dark:from-stone-200 dark:to-neutral-200",
+          " bg-gradient-to-t from-stone-800 to-neutral-800",
+        pink: " bg-gradient-to-t from-pink-300 to-pink-400",
         light: "bg-gradient-to-t from-neutral-200 to-neutral-300",
         secondary:
           "bg-gradient-to-t  from-primary-foreground to-muted-foreground",
