@@ -13,7 +13,7 @@ import {
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
-export function UserAvatar() {
+export function UserAvatar({ user }: { user: any }) {
   const router = useRouter()
 
   const handleLogout = async () => {

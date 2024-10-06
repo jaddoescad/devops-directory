@@ -1,11 +1,9 @@
 import { FadeIn } from "@/components/cult/fade-in"
-import { Hero } from "@/components/hero"
-
-import {
-  ResourceCardGrid,
-} from "../components/directory-card-grid"
+import { NavigationBar } from "@/components/navigation-bar"
+import { ResourceCardGrid } from "../components/directory-card-grid"
 import { getCachedFilters } from "./actions/cached_actions"
 import { getProducts } from "./actions/product"
+import { createClient } from "@/db/supabase/server"
 
 // Select the resources you want to feature.. AD SPACE?
 const FEATURED_IDS = [
@@ -16,22 +14,33 @@ const FEATURED_IDS = [
 ] // Replace 'id1', 'id2', 'id3' with actual IDs you want to feature
 
 async function Page({ searchParams }: { searchParams: { search?: string } }) {
-  let data = await getProducts(searchParams.search)
-  let filters = await getCachedFilters()
+  const supabase = createClient()
+  
+  // Fetch data, filters, and user in parallel
+  const [data, filters, { data: { user } }] = await Promise.all([
+    getProducts(searchParams.search),
+    getCachedFilters(),
+    supabase.auth.getUser()
+  ])
+
   const filteredFeaturedData = data.filter((d: any) =>
     FEATURED_IDS.includes(d.id)
   )
 
   return (
     <>
-      <Hero categories={filters.categories} labels={filters.labels} tags={filters.tags} />
+      <NavigationBar 
+        categories={filters.categories} 
+        labels={filters.labels} 
+        tags={filters.tags}
+        user={user} // Pass the user to the Hero component
+      />
 
       <FadeIn>
         <ResourceCardGrid
           sortedData={data}
           filteredFeaturedData={filteredFeaturedData}
-        >
-        </ResourceCardGrid>
+        />
       </FadeIn>
     </>
   )
