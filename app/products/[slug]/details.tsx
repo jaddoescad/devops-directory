@@ -55,15 +55,15 @@ export const ProductDetails = ({ product }: { product: Product }) => (
               </BreadcrumbLink>
             </BreadcrumbItem>
           </Breadcrumb>
-          <CardTitle className="text-6xl tracking-tighter font-extrabold text-neutral-900 dark:text-neutral-200">
+          <CardTitle className="text-6xl tracking-tighter font-extrabold text-neutral-900">
             {product.punchline}
           </CardTitle>
-          <CardDescription className="md:text-xl text-lg tracking-tight text-neutral-800 text-balance dark:text-neutral-400 flex gap-2 items-center ">
+          <CardDescription className="md:text-xl text-lg tracking-tight text-neutral-800 text-balance flex gap-2 items-center ">
             <Blocks className="stroke-1 size-8" />{" "}
             <span className="flex-wrap">{product.categories}</span>
           </CardDescription>
           {product.tags.length >= 1 && (
-            <CardDescription className="md:text-xl text-lg tracking-tight text-neutral-800 text-balance dark:text-neutral-400 flex gap-2 items-center ">
+            <CardDescription className="md:text-xl text-lg tracking-tight text-neutral-800 text-balance flex gap-2 items-center ">
               <Tag className="stroke-1 size-8" />{" "}
               <span className="flex-wrap">{product.tags.join(", ")}</span>
             </CardDescription>
@@ -80,7 +80,7 @@ export const ProductDetails = ({ product }: { product: Product }) => (
         <div
           className={cn(
             "w-full col-span-7 p-3 md:p-7 rounded-[36px] md:rounded-[58px] border border-black/10 space-y-10",
-            "bg-white dark:bg-[#1E1E1E]  shadow-[0_0_0_1px_rgba(0,0,0,0.1)_inset,0_0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_-0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_1px_2px_rgba(0,0,0,0.1)] dark:shadow-[0_0_0_0.5px_rgba(255,255,255,0.06)_inset,0_0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_-0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_0.5px_1px_rgba(0,0,0,0.3),0_1px_2px_rgba(0,0,0,0.4)]"
+            "bg-white shadow-[0_0_0_1px_rgba(0,0,0,0.1)_inset,0_0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_-0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_1px_2px_rgba(0,0,0,0.1)]"
           )}
         >
           <div className="w-full p-1 md:p-3 rounded-[28px] md:rounded-[36px] bg-[#3d3d3d]">
@@ -90,11 +90,11 @@ export const ProductDetails = ({ product }: { product: Product }) => (
               alt={`${product.full_name} image`}
             />
           </div>
-          <CardDescription className="text-2xl tracking-tight leading-tight text-neutral-800 text-balance dark:text-neutral-400">
+          <CardDescription className="text-2xl tracking-tight leading-tight text-neutral-800 text-balance">
             {product.description}
           </CardDescription>
 
-          <div className="md:text-xl sm:text-lg tracking-tight text-neutral-800 text-balance dark:text-neutral-400 flex gap-2 items-center flex-wrap text-sm">
+          <div className="md:text-xl sm:text-lg tracking-tight text-neutral-800 text-balance flex gap-2 items-center flex-wrap text-sm">
             {product.labels[0] !== "unlabeled" &&
               product.labels.map((label, index) => (
                 <Link

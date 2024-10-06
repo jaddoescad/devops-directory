@@ -64,22 +64,17 @@ export const ResourceCardGrid: React.FC<SEOCardGridProps> = ({
 }) => {
   const pathname = usePathname()
   return (
-    <div className=" flex flex-col md:items-start gap-4 overflow-hidden pb-4  relative">
+    <div className="flex flex-col md:items-start gap-4 overflow-hidden pb-4 relative flex-grow">
       <div
-        // className={cn(
-        //   "bg-white dark:bg-[#1E1E1E] rounded-[2rem] p-4 w-full",
-        //   "shadow-[0_0_0_1px_rgba(0,0,0,0.1)_inset,0_0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_-0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_1px_2px_rgba(0,0,0,0.1)]",
-        //   "dark:shadow-[0_0_0_0.5px_rgba(255,255,255,0.06)_inset,0_0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_-0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_0.5px_1px_rgba(0,0,0,0.3),0_1px_2px_rgba(0,0,0,0.4)]"
-        // )}
         className={cn(
-          " p-4 w-full",
+          "p-4 w-full h-full",
           pathname.includes("/products")
             ? ""
-            : "bg-white dark:bg-[#1E1E1E] rounded-[2rem] shadow-[0_0_0_1px_rgba(0,0,0,0.1)_inset,0_0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_-0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_1px_2px_rgba(0,0,0,0.1)] dark:shadow-[0_0_0_0.5px_rgba(255,255,255,0.06)_inset,0_0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_-0.5px_0.5px_rgba(255,255,255,0.1)_inset,0_0.5px_1px_rgba(0,0,0,0.3),0_1px_2px_rgba(0,0,0,0.4)]"
+            : "bg-white rounded-[2rem] shadow-[0_0_0_1px_rgba(0,0,0,0.1)_inset,0_0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_-0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_1px_2px_rgba(0,0,0,0.1)]"
         )}
       >
         <Suspense fallback={<div>Loading...</div>}>
-          <div className="relative">
+          <div className="relative h-full">
             <TailwindMasonryGrid filteredData={sortedData} />
           </div>
         </Suspense>
@@ -115,7 +110,7 @@ export const FeaturedGrid: React.FC<{ featuredData: Product[] }> = ({
   featuredData,
 }) => {
   return (
-    <div className="w-full mx-auto max-w-7xl bg-neutral-50/40 dark:bg-neutral-950/40 border border-dashed border-black/10 py-3 px-3 rounded-2xl">
+    <div className="w-full mx-auto max-w-7xl bg-neutral-50/40 border border-dashed border-black/10 py-3 px-3 rounded-2xl">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-4">
         {featuredData.map((data, index) => (
           <ResourceCard trim={true} data={data} order={index} />
@@ -160,7 +155,7 @@ export const EmptyFeaturedGrid = () => {
   ]
 
   return (
-    <div className="w-full mx-auto max-w-7xl  bg-black/20 dark:bg-neutral-950/40 border border-dashed border-black/10 py-3 px-3 rounded-[1.9rem]">
+    <div className="w-full mx-auto max-w-7xl bg-black/20 border border-dashed border-black/10 py-3 px-3 rounded-[1.9rem]">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {emptyData.map((data, index) => (
           <Link
@@ -168,7 +163,7 @@ export const EmptyFeaturedGrid = () => {
             target="_blank"
             rel="noreferrer noopener"
             key={`featured-${index}-${data.codename}`}
-            className="md:py-0 "
+            className="md:py-0"
           >
             {/* @ts-expect-error */}
             <ResourceCard trim={true} data={data} order={index} />

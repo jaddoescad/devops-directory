@@ -28,21 +28,21 @@ async function Page({ searchParams }: { searchParams: { search?: string } }) {
   )
 
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <NavigationBar 
         categories={filters.categories} 
         labels={filters.labels} 
         tags={filters.tags}
-        user={user} // Pass the user to the Hero component
+        user={user}
       />
 
-      <FadeIn>
+      <FadeIn className="flex-grow flex">
         <ResourceCardGrid
           sortedData={data}
           filteredFeaturedData={filteredFeaturedData}
         />
       </FadeIn>
-    </>
+    </div>
   )
 }
 
