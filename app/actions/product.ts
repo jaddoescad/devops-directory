@@ -44,7 +44,12 @@ export const getProducts = cache(
     tag?: string
   ) => {
     const db = createClient()
-    let query = db.from("products").select("*")
+    let query = db
+      .from("products")
+      .select(`
+        *,
+        categories:categories(id, name)
+      `)
 
     if (searchTerm) {
       query = query.or(
@@ -53,7 +58,7 @@ export const getProducts = cache(
     }
 
     if (category) {
-      query = query.eq("categories", category)
+      query = query.eq("categories.name", category)
     }
 
     if (label) {
@@ -71,7 +76,10 @@ export const getProducts = cache(
       return []
     }
 
-    return data
+    return data.map(product => ({
+      ...product,
+      category_name: product.categories?.name
+    }))
   }
 )
 
