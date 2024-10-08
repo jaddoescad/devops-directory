@@ -83,6 +83,36 @@ export const getProducts = cache(
   }
 )
 
+export const getProductsByCategory = cache(async () => {
+  const db = createClient()
+  const { data, error } = await db
+    .from("products")
+    .select(`
+      *,
+      categories:categories(id, name)
+    `)
+    .order('categories->name')
+
+  if (error) {
+    console.error("Error fetching products by category:", error)
+    return []
+  }
+
+  const groupedProducts = data.reduce((acc, product) => {
+    const categoryName = product.categories?.name || 'Uncategorized'
+    if (!acc[categoryName]) {
+      acc[categoryName] = []
+    }
+    acc[categoryName].push({
+      ...product,
+      category_name: categoryName
+    })
+    return acc
+  }, {})
+
+  return groupedProducts
+})
+
 export async function getProductById(id?: string) {
   const supabase = createClient()
 
