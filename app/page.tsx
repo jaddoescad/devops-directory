@@ -5,20 +5,13 @@ import { getCachedFilters } from "./actions/cached_actions"
 import { getProducts } from "./actions/product"
 import { createClient } from "@/db/supabase/server"
 
-// Select the resources you want to feature.. AD SPACE?
-const FEATURED_IDS = [
-  // "3b741434-1bdb-4903-91e9-a7fa154a8fdf",
-  // "f8a5db00-c80e-4fe4-80a7-af9d79a03690",
-  // "ad4b9d2e-6461-4eed-afbf-86aa284000cc",
-  "",
-] // Replace 'id1', 'id2', 'id3' with actual IDs you want to feature
+const FEATURED_IDS = [""]
 
-async function Page({ searchParams }: { searchParams: { search?: string } }) {
+async function Page() {
   const supabase = createClient()
   
-  // Fetch data, filters, and user in parallel
   const [data, filters, { data: { user } }] = await Promise.all([
-    getProducts(searchParams.search),
+    getProducts(),
     getCachedFilters(),
     supabase.auth.getUser()
   ])

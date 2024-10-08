@@ -1,6 +1,6 @@
 "use client"
 
-import { useTransition } from "react"
+import { useTransition, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { AnimatePresence } from "framer-motion"
 
@@ -14,22 +14,24 @@ export function DirectorySearch() {
   let pathname = usePathname()
 
   let [isPending, startTransition] = useTransition()
+  let [searchTerm, setSearchTerm] = useState("")
 
   let handleSearch = (term: string) => {
-    let params = new URLSearchParams(window.location.search)
     if (term) {
-      params.set("search", term)
-    } else {
-      params.delete("search")
+      startTransition(() => {
+        router.push(`/search?q=${encodeURIComponent(term)}`)
+      })
     }
-    params.delete("page")
-    startTransition(() => {
-      router.replace(`${pathname}?${params.toString()}`)
-    })
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleSearch(e.target.value)
+    setSearchTerm(e.target.value)
+  }
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch(searchTerm)
+    }
   }
 
   return (
@@ -37,9 +39,11 @@ export function DirectorySearch() {
       <InputButton
         hasIcon
         id="search"
-        className={cn("relative pr-10 pl-12 md:py-3 w-full border border-black rounded-md")} // Changed border to black
+        className={cn("relative pr-10 pl-12 md:py-3 w-full border border-black rounded-md")}
         tabIndex={0}
         onChange={handleInputChange}
+        onKeyDown={handleKeyDown}
+        value={searchTerm}
         placeholder="Search all courses"
         spellCheck={false}
         enterKeyHint="go"
@@ -48,7 +52,7 @@ export function DirectorySearch() {
           <div className="absolute ml-4 w-12 rounded-r-full"> 
             <AnimatePresence>
               {isPending ? (
-                <IconSpinner className="-ml-0.5 h-5 w-5 animate-spin stroke-teal-600 group-hover:stroke-teal-700" /> // Reduced icon size
+                <IconSpinner className="-ml-0.5 h-5 w-5 animate-spin stroke-teal-600 group-hover:stroke-teal-700" />
               ) : null}
             </AnimatePresence>
           </div>

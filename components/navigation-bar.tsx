@@ -33,9 +33,9 @@ export function NavigationBar({
       {/* Desktop version */}
       <div className="hidden md:block">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-4 w-1/3">
-            <Link href="/" className="flex items-center">
-              <Image src={logo} alt="Logo" width={175} height={100} />
+          <div className="flex items-center space-x-4 w-2/3">
+            <Link href="/" className="flex items-center flex-shrink-0">
+              <Image src={logo} alt="Logo" width={175} height={100} className="w-[175px] h-auto" />
             </Link>
             <NavDropdown
               title="Categories"
@@ -43,10 +43,9 @@ export function NavigationBar({
               searchParams={searchParams}
               paramName="category"
             />
-          </div>
-
-          <div className="flex-grow flex justify-center w-1/3">
-            <DirectorySearch />
+            <div className="flex-grow">
+              <DirectorySearch />
+            </div>
           </div>
 
           <div className="flex items-center justify-end space-x-4 w-1/3">
@@ -87,8 +86,8 @@ export function NavigationBar({
             <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
               <Menu />
             </Button>
-            <Link href="/" className="flex items-center">
-              <Image src="/assets/logo.png" alt="Logo" width={24} height={24} />
+            <Link href="/" className="flex items-center flex-shrink-0">
+              <Image src={logo} alt="Logo" width={175} height={100} className="w-[175px] h-auto" />
             </Link>
           </div>
           <div className="flex items-center space-x-2">

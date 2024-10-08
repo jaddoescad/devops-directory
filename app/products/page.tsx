@@ -18,14 +18,13 @@ export default async function ProductsPage({
   searchParams,
 }: {
   searchParams: {
-    search?: string
     category?: string
     label?: string
     tag?: string
   }
 }): Promise<ReactElement> {
-  const { search, category, label, tag } = searchParams
-  const data = await getProducts(search, category, label, tag)
+  const { category, label, tag } = searchParams
+  const data = await getProducts(undefined, category, label, tag)
   let filters = await getCachedFilters()
 
   return (
@@ -33,33 +32,19 @@ export default async function ProductsPage({
       <div className="max-w-full pt-4">
         <FadeIn>
           <ResourceCardGrid sortedData={data} filteredFeaturedData={null}>
-            {search ?? category ?? label ?? tag ? (
+            {category || label || tag ? (
               <div className="md:mr-auto mx-auto flex flex-col items-center md:items-start">
                 <div className="flex mb-1 justify-center md:justify-start">
-                  {search ? (
-                    <Search className="mr-1 bg-gray-200 fill-blue-300/30 stroke-blue-600 size-6 p-1 rounded-full" />
-                  ) : null}
-                  {category ? (
-                    <BoxIcon className="mr-1 bg-gray-200 fill-blue-300/30 stroke-blue-600 size-6 p-1 rounded-full" />
-                  ) : null}
-                  {label ? (
-                    <Hash className="mr-1 bg-gray-200 fill-blue-300/30 stroke-blue-600 size-6 p-1 rounded-full" />
-                  ) : null}
-                  {tag ? (
-                    <TagIcon className="mr-1 bg-gray-200 fill-blue-300/30 stroke-blue-600 size-6 p-1 rounded-full" />
-                  ) : null}
-                  {search ? "search" : ""}
-                  {category ? "category" : ""}
-                  {label ? "label" : ""}
-                  {tag ? "tag" : ""}
+                  {category && <BoxIcon className="mr-1 bg-gray-200 fill-blue-300/30 stroke-blue-600 size-6 p-1 rounded-full" />}
+                  {label && <Hash className="mr-1 bg-gray-200 fill-blue-300/30 stroke-blue-600 size-6 p-1 rounded-full" />}
+                  {tag && <TagIcon className="mr-1 bg-gray-200 fill-blue-300/30 stroke-blue-600 size-6 p-1 rounded-full" />}
+                  {category ? "category" : label ? "label" : "tag"}
                 </div>
                 <GradientHeading size="xxl">
-                  {search ?? category ?? label ?? tag}
+                  {category || label || tag}
                 </GradientHeading>
               </div>
             ) : null}
-
-            {/* <Separator className="mb-12 ml-auto w-[85%] bg-gray-200 h-[2px] animate-pulse rounded-l-full" /> */}
           </ResourceCardGrid>
         </FadeIn>
       </div>

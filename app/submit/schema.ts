@@ -1,33 +1,16 @@
 import { z } from "zod"
 
+const urlRegex = /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/
+
 export const schema = z.object({
   fullName: z.string().trim().min(1, { message: "Full name is required." }),
-  email: z.string().trim(),
-  twitterHandle: z
-    .string()
-    .trim()
-    .min(1, { message: "Twitter handle is required." }),
-
-  productWebsite: z.string().trim().url({ message: "Invalid URL." }),
-  codename: z.string().trim().min(1, { message: "Codename is required." }),
-  punchline: z
-    .string()
-    .trim()
-    .max(30, { message: "Punchline must be less than 10 words." }),
-  description: z
-    .string()
-    .trim()
-    .min(1, { message: "Description is required." }),
-  categories: z.string().trim().min(1, { message: "Category is required." }),
-  images: z.any(),
-  logo_src: z.any().optional(),
+  email: z.string().trim().email({ message: "Invalid email address." }),
+  courseUrl: z.string().trim().refine(
+    (value) => urlRegex.test(value),
+    {
+      message: "Please enter a valid URL. It should start with http:// or https://",
+    }
+  ),
 })
 
-export const enrichmentSchema = z.object({
-  tags: z
-    .array(z.string())
-    .min(1, { message: "At least one tag is required." }),
-  labels: z
-    .array(z.string())
-    .min(1, { message: "At least one label is required." }),
-})
+// Remove the enrichmentSchema if it's no longer needed
