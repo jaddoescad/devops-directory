@@ -105,9 +105,9 @@ export async function onSubmitToolAction(
       fields[key] = data[key].toString()
     }
     return {
-      message: "Invalid form data",
+      message: "Form validation failed",
       fields,
-      issues: parsed.error.issues.map((issue) => issue.message),
+      issues: parsed.error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`),
     }
   }
 
@@ -157,14 +157,9 @@ export async function onSubmitToolAction(
       }
     }
 
-    if (config.allowNewCategories) {
-      await insertIfNotExists(db, "categories", parsed.data.categories)
-    }
-
     const productData = {
       full_name: parsed.data.fullName,
       email: parsed.data.email,
-      twitter_handle: parsed.data.twitterHandle,
       product_website: parsed.data.productWebsite,
       codename: parsed.data.codename,
       punchline: parsed.data.punchline,

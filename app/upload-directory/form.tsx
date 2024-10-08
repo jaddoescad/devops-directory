@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/select"
 import { FileUploader } from "@/components/cult/file-drop"
 import { GradientHeading } from "@/components/cult/gradient-heading"
+import { createClient } from "@/db/supabase/client"
 
 import { StyledButton } from "../login/submit-button"
 import { onSubmitToolAction } from "./action"
@@ -36,21 +37,9 @@ import { schema } from "./schema"
 // To trigger async toast
 const p = () => new Promise((resolve) => setTimeout(() => resolve(""), 900))
 
-const categories = [
-  { label: "Boilerplate", value: "boilerplate" },
-  { label: "Analytics", value: "analytics" },
-  { label: "Marketing Tools", value: "marketing-tools" },
-  { label: "Developer Tools", value: "developer-tools" },
-  { label: "E-commerce", value: "e-commerce" },
-  { label: "Productivity", value: "productivity" },
-  { label: "Design Tools", value: "design-tools" },
-  { label: "Fintech", value: "fintech" },
-  { label: "Education", value: "education" },
-  { label: "SaaS", value: "saas" },
-]
-
 export const SubmitTool = () => {
   const [loading, setLoading] = useState(false)
+  const [categories, setCategories] = useState([])
   const router = useRouter()
 
   const [state, formAction] = useFormState(onSubmitToolAction, {
@@ -60,7 +49,7 @@ export const SubmitTool = () => {
 
   const form = useForm<z.output<typeof schema>>({
     resolver: zodResolver(schema),
-    mode: "onChange", // Enable validation on change to get real-time validation state
+    mode: "onChange",
     defaultValues: {
       fullName: "",
       email: "",
@@ -80,14 +69,33 @@ export const SubmitTool = () => {
   const formRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
-    if (state.message && state.issues.length < 1) {
-      toast.success(state.message)
-    } else if (state.issues.length >= 1) {
-      toast.error(state.issues.join(", "))
-      setLoading(false)
+    const fetchCategories = async () => {
+      const supabase = createClient()
+      const { data, error } = await supabase
+        .from('categories')
+        .select('id, name')
+        .order('name')
+
+      if (error) {
+        console.error('Error fetching categories:', error)
+      } else {
+        setCategories(data)
+      }
     }
-    setLoading(false)
-  }, [state.message, state.issues])
+
+    fetchCategories()
+  }, [])
+
+  useEffect(() => {
+    if (state.message) {
+      if (state.issues.length < 1) {
+        toast.success(state.message);
+      } else {
+        toast.error(state.issues.join(", "));
+      }
+    }
+    setLoading(false);
+  }, [state.message, state.issues]);
 
   return (
     <Form {...form}>
@@ -107,24 +115,37 @@ export const SubmitTool = () => {
         ref={formRef}
         className="space-y-8"
         action={formAction}
-        onSubmit={(evt) => {
-          evt.preventDefault()
-          if (!form.formState.isValid) {
-            toast.error("Please fill out all required fields correctly.")
-            return
+        onSubmit={async (evt) => {
+          evt.preventDefault();
+          const result = await form.trigger();
+          if (!result) {
+            const errors = form.formState.errors;
+            const errorMessages = Object.entries(errors)
+              .map(([field, error]) => `${field}: ${error.message}`)
+              .join(', ');
+            toast.error(`Please correct the following errors: ${errorMessages}`);
+            return;
           }
-          setLoading(true)
-          toast.promise(p, { loading: "Submitting..." })
-          form.handleSubmit(async (data) => {
-            let formData = new FormData(formRef.current!)
-            const logoFile = form.getValues("images")
+          setLoading(true);
+          try {
+            let formData = new FormData(formRef.current!);
+            const logoFile = form.getValues("images");
             if (logoFile.length > 0) {
-              formData.set("images", logoFile[0])
+              formData.set("images", logoFile[0]);
             }
-            setLoading(false)
-            await formAction(formData)
-            router.push("/")
-          })(evt)
+            const result = await formAction(formData);
+            if (result.issues.length > 0) {
+              toast.error(result.issues.join(', '));
+            } else {
+              toast.success(result.message);
+              router.push("/");
+            }
+          } catch (error) {
+            console.error("Submission error:", error);
+            toast.error("An error occurred while submitting the form. Please try again.");
+          } finally {
+            setLoading(false);
+          }
         }}
       >
         <GradientHeading size="xs">
@@ -251,27 +272,25 @@ export const SubmitTool = () => {
                 <SelectContent>
                   {categories.map((category) => (
                     <SelectItem
-                      key={category.label}
-                      value={(category.value ?? "").toLowerCase()}
+                      key={category.id}
+                      value={category.id}
                     >
-                      {category.label}
+                      {category.name}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
               <FormDescription>
-                This is the categories that will be used in the dashboard.
+                This is the category that will be used in the dashboard.
               </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
 
-        {/* {isValid && ( */}
-          <StyledButton disabled={loading} type="submit">
-            Submit
-          </StyledButton>
-        {/* )} */}
+        <StyledButton disabled={loading} type="submit">
+          {loading ? "Submitting..." : "Submit"}
+        </StyledButton>
       </form>
     </Form>
   )

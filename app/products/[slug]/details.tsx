@@ -28,7 +28,6 @@ interface Product {
   created_at: string
   full_name: string
   email: string
-  twitter_handle: string
   product_website: string
   codename: string
   punchline: string
