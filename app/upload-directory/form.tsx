@@ -127,19 +127,15 @@ export const SubmitTool = () => {
             return;
           }
           setLoading(true);
+          toast.promise(p, { loading: "Submitting..." });
           try {
             let formData = new FormData(formRef.current!);
             const logoFile = form.getValues("images");
             if (logoFile.length > 0) {
               formData.set("images", logoFile[0]);
             }
-            const result = await formAction(formData);
-            if (result.issues.length > 0) {
-              toast.error(result.issues.join(', '));
-            } else {
-              toast.success(result.message);
-              router.push("/");
-            }
+            await formAction(formData);
+            router.push("/");
           } catch (error) {
             console.error("Submission error:", error);
             toast.error("An error occurred while submitting the form. Please try again.");

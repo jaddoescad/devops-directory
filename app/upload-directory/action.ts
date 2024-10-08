@@ -185,8 +185,10 @@ export async function onSubmitToolAction(
 
     console.log("Product data successfully inserted")
 
-    return { message: "Tool submitted successfully", issues: [] }
+    console.log("Returning from onSubmitToolAction:", { message: "Tool submitted successfully", issues: [] });
+    return { message: "Tool submitted successfully", issues: [] };
   } catch (error) {
+    console.error("Detailed error:", error);
     console.error(
       `Submission failed: ${
         isErrorWithMessage(error) ? error.message : "Unknown error occurred"
