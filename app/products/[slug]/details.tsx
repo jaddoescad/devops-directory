@@ -39,7 +39,10 @@ interface Product {
   view_count: number
   approved: boolean
   labels: string[]
-  categories: string
+  categories: {
+    id: string
+    name: string
+  }
 }
 
 export const ProductDetails = ({ product }: { product: Product }) => (
@@ -60,7 +63,7 @@ export const ProductDetails = ({ product }: { product: Product }) => (
           </CardTitle>
           <CardDescription className="md:text-xl text-lg tracking-tight text-neutral-800 text-balance flex gap-2 items-center ">
             <Blocks className="stroke-1 size-8" />{" "}
-            <span className="flex-wrap">{product.categories}</span>
+            <span className="flex-wrap">{product.categories.name}</span>
           </CardDescription>
           {product.tags.length >= 1 && (
             <CardDescription className="md:text-xl text-lg tracking-tight text-neutral-800 text-balance flex gap-2 items-center ">

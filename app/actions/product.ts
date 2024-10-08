@@ -80,15 +80,22 @@ export async function getProductById(id?: string) {
 
   const { data, error } = await supabase
     .from("products")
-    .select("*")
+    .select(`
+      *,
+      categories:categories(name)
+    `)
     .eq("id", id)
+    .single()
+
   if (error) {
-    console.error("Error fetching resources:", error)
-    return []
+    console.error("Error fetching product:", error)
+    return null
   }
 
-  console.log(data)
-  return data
+  return {
+    ...data,
+    category_name: data.categories?.name
+  }
 }
 
 export async function incrementClickCount(id: string) {
