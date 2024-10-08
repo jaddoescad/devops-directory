@@ -31,17 +31,19 @@ export default async function ProductsPage({
     <>
       <div className="max-w-full pt-4">
         <FadeIn>
+          {category && (
+            <h1 className="text-4xl font-bold mb-6 text-center">{category}</h1>
+          )}
           <ResourceCardGrid sortedData={data} filteredFeaturedData={null}>
-            {category || label || tag ? (
+            {label || tag ? (
               <div className="md:mr-auto mx-auto flex flex-col items-center md:items-start">
                 <div className="flex mb-1 justify-center md:justify-start">
-                  {category && <BoxIcon className="mr-1 bg-gray-200 fill-blue-300/30 stroke-blue-600 size-6 p-1 rounded-full" />}
                   {label && <Hash className="mr-1 bg-gray-200 fill-blue-300/30 stroke-blue-600 size-6 p-1 rounded-full" />}
                   {tag && <TagIcon className="mr-1 bg-gray-200 fill-blue-300/30 stroke-blue-600 size-6 p-1 rounded-full" />}
-                  {category ? "category" : label ? "label" : "tag"}
+                  {label ? "label" : "tag"}
                 </div>
                 <GradientHeading size="xxl">
-                  {category || label || tag}
+                  {label || tag}
                 </GradientHeading>
               </div>
             ) : null}
