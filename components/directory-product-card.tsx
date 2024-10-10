@@ -107,13 +107,6 @@ export const ResourceCard: React.FC<{
             >
               {data.codename.substring(0, 30)}
             </MinimalCardTitle>
-            <motion.p
-              initial={{ opacity: 0, y: 5 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="text-xs leading-3 mb-2 text-neutral-500"
-            >
-              {getLastPathSegment(data.product_website, 10)}
-            </motion.p>
             <MinimalCardDescription
               className={cn(
                 "text-sm",
