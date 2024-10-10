@@ -19,43 +19,21 @@ export function NavigationBar({
   labels,
   tags,
   user,
+  children
 }: {
   categories?: string[]
   labels?: string[]
   tags?: string[]
   user: any
+  children: React.ReactNode
 }) {
   const searchParams = useSearchParams()
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <nav className="p-4">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-4">
-          <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            <Menu />
-          </Button>
-          <Link href="/" className="flex items-center flex-shrink-0">
-            <Image src={logo} alt="Logo" width={175} height={100} className="w-[175px] h-auto" />
-          </Link>
-        </div>
-        
-        <div className="flex items-center space-x-2">
-          <Button variant="default" size="sm" asChild className="bg-black text-white hover:bg-black/90">
-            <Link href="/submit">Submit</Link>
-          </Button>
-          {user ? (
-            <UserAvatar user={user} />
-          ) : (
-            <Button variant="outline" size="sm" asChild>
-              <Link href="/login">Login</Link>
-            </Button>
-          )}
-        </div>
-      </div>
-
+    <div className="flex">
       {/* Side Navigation */}
-      <div className={`fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-lg transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out`}>
+      <div className={`fixed top-0 left-0 h-full bg-white shadow-lg transform ${isMenuOpen ? 'translate-x-0' : '-translate-x-full'} transition-transform duration-300 ease-in-out w-64 z-20`}>
         <div className="p-4">
           <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(false)} className="mb-4">
             <X />
@@ -115,7 +93,37 @@ export function NavigationBar({
           </div>
         </div>
       </div>
-    </nav>
+
+      {/* Main Content */}
+      <div className={`flex-1 transition-margin duration-300 ease-in-out ${isMenuOpen ? 'ml-64' : ''}`}>
+        <nav className="p-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+                <Menu />
+              </Button>
+              <Link href="/" className="flex items-center flex-shrink-0">
+                <Image src={logo} alt="Logo" width={175} height={100} className="w-[175px] h-auto" />
+              </Link>
+            </div>
+            
+            <div className="flex items-center space-x-2">
+              <Button variant="default" size="sm" asChild className="bg-black text-white hover:bg-black/90">
+                <Link href="/submit">Submit</Link>
+              </Button>
+              {user ? (
+                <UserAvatar user={user} />
+              ) : (
+                <Button variant="outline" size="sm" asChild>
+                  <Link href="/login">Login</Link>
+                </Button>
+              )}
+            </div>
+          </div>
+        </nav>
+        {children}
+      </div>
+    </div>
   )
 }
 

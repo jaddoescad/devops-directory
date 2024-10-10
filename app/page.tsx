@@ -15,14 +15,12 @@ async function Page() {
   ])
 
   return (
-    <div className="flex flex-col min-h-screen">
-      <NavigationBar 
-        categories={filters.categories} 
-        labels={filters.labels} 
-        tags={filters.tags}
-        user={user}
-      />
-
+    <NavigationBar 
+      categories={filters.categories} 
+      labels={filters.labels} 
+      tags={filters.tags}
+      user={user}
+    >
       <FadeIn className="flex-grow">
         <div className="container mx-auto px-4">
           {Object.entries(groupedProducts).map(([category, products]) => (
@@ -33,7 +31,7 @@ async function Page() {
           ))}
         </div>
       </FadeIn>
-    </div>
+    </NavigationBar>
   )
 }
 
