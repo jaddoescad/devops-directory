@@ -12,7 +12,7 @@ const footerLinks = [
     ],
   },
   {
-    title: "Resources",
+    title: "Other directories",
     links: [
       { name: "Blog", href: "/blog" },
       { name: "Newsletter", href: "/newsletter" },
@@ -20,7 +20,7 @@ const footerLinks = [
     ],
   },
   {
-    title: "Legal",
+    title: "--",
     links: [
       { name: "Terms", href: "/terms" },
       { name: "Privacy", href: "/privacy" },

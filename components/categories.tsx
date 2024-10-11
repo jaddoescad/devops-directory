@@ -23,7 +23,7 @@ export function Categories({ categories }: { categories: Category[] }) {
           className={cn(
             "px-4 py-2 rounded-full text-sm font-medium transition-colors",
             !searchParams.get('category')
-              ? "bg-black text-white"
+              ? "bg-[#0097b2] text-white"
               : "bg-gray-100 text-gray-800 hover:bg-gray-200"
           )}
         >
@@ -37,7 +37,7 @@ export function Categories({ categories }: { categories: Category[] }) {
             className={cn(
               "px-4 py-2 rounded-full text-sm font-medium transition-colors",
               searchParams.get('category') === category.code
-                ? "bg-black text-white"
+                ? "bg-[#0097b2] text-white"
                 : "bg-gray-100 text-gray-800 hover:bg-gray-200"
             )}
           >

@@ -48,7 +48,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           buttonVariants({ variant, size }),
           "relative inline-flex items-center px-4 py-2 group",
           "text-base font-medium leading-6 rounded-[9px]",
-          // Removed focus-related classes
           "focus:outline-none",
           "disabled:opacity-50 disabled:cursor-not-allowed",
           className

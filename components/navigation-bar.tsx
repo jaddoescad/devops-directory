@@ -34,7 +34,12 @@ export function NavigationBar({
           </div>
           
           <div className="flex items-center space-x-2">
-            <Button variant="default" size="sm" asChild className="bg-black text-white hover:bg-black/90">
+            <Button 
+              variant="default" 
+              size="sm" 
+              asChild 
+              className="bg-[#0097b2] hover:bg-[#0097b2]/90 text-white !bg-none !border-none"
+            >
               <Link href="/submit">Submit</Link>
             </Button>
             {user ? (
