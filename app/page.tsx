@@ -30,8 +30,6 @@ async function Page({
     getCachedFilters(),
   ])
 
-  console.log(data)
-
   return (
     <>
       <Categories categories={filters.categories as Category[]} />

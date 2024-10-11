@@ -48,7 +48,7 @@ export const getProducts = cache(
       .from("products")
       .select(`
         *,
-        categories:categories(id, name, code)
+        categories!inner(id, name, code)
       `)
 
     if (searchTerm) {
@@ -58,7 +58,7 @@ export const getProducts = cache(
     }
 
     if (category) {
-      query = query.eq("categories.name", category)
+      query = query.eq('categories.code', category)
     }
 
     if (label) {
