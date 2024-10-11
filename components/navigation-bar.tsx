@@ -80,7 +80,7 @@ export function NavigationBar({
               </ul>
             </div>
           )}
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <h2 className="font-semibold mb-2">Tags</h2>
             <ul className="space-y-1">
               {tags && tags.map((tag, index) => (
@@ -96,8 +96,8 @@ export function NavigationBar({
                 </li>
               ))}
             </ul>
-          </div>
-          <div className="mb-4">
+          </div> */}
+          {/* <div className="mb-4">
             <h2 className="font-semibold mb-2">Labels</h2>
             <ul className="space-y-1">
               {labels && labels.map((label, index) => (
@@ -113,7 +113,7 @@ export function NavigationBar({
                 </li>
               ))}
             </ul>
-          </div>
+          </div> */}
         </div>
       </div>
 
