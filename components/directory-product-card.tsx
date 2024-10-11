@@ -78,7 +78,7 @@ export const ResourceCard: React.FC<{
       layout
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="group relative  break-inside-avoid w-full"
+      className="group relative break-inside-avoid w-[300px]" // Fixed width of 300px
     >
       <Link
         href={`/products/${data.id}`}
