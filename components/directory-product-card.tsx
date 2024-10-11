@@ -78,60 +78,54 @@ export const ResourceCard: React.FC<{
       layout
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="group relative break-inside-avoid w-[300px]" // Fixed width of 300px
+      className="group relative break-inside-avoid w-full"
     >
       <Link
         href={`/products/${data.id}`}
         key={`/products/${data.id}`}
-        className=""
+        className="block w-full"
         onClick={handleClick}
       >
-        <div className="w-full">
-          <MinimalCard
+        <MinimalCard
+          className={cn(
+            optimisticResource.view_count > 350
+              ? "text-neutral-900 hover:bg-[#666BFA]"
+              : "",
+            "w-full"
+          )}
+        >
+          {data.logo_src ? (
+            <MinimalCardImage alt={data.codename} src={data.logo_src} />
+          ) : null}
+
+          <MinimalCardTitle
             className={cn(
-              optimisticResource.view_count > 350
-                ? " text-neutral-900 hover:bg-[#666BFA] "
-                : "",
-              "w-full"
+              " font-semibold mb-0.5",
+              optimisticResource.view_count > 100 ? " text-neutral-800" : ""
             )}
           >
-            {data.logo_src ? (
-              <MinimalCardImage alt={data.codename} src={data.logo_src} />
-            ) : null}
+            {data.codename.substring(0, 30)}
+          </MinimalCardTitle>
+          
+          <p className="text-sm text-neutral-500 mt-2 line-clamp-3 h-[4.5em] overflow-hidden">
+            {data.description}
+          </p>
 
-            <MinimalCardTitle
+          <MinimalCardContent />
+
+          <MinimalCardFooter>
+            <div
               className={cn(
-                " font-semibold mb-0.5",
+                "p-1 py-1.5 px-1.5 rounded-md text-neutral-500 flex items-center gap-1  absolute bottom-2 right-2 rounded-br-[16px]",
                 optimisticResource.view_count > 100 ? " text-neutral-800" : ""
               )}
             >
-              {data.codename.substring(0, 30)}
-            </MinimalCardTitle>
-            <MinimalCardDescription
-              className={cn(
-                "text-sm",
-                optimisticResource.view_count > 100 ? " text-neutral-700" : ""
-              )}
-            >
-              {trim ? `${data.description.slice(0, 82)}...` : data.description}
-            </MinimalCardDescription>
-
-            <MinimalCardContent />
-
-            <MinimalCardFooter>
-              <div
-                className={cn(
-                  "p-1 py-1.5 px-1.5 rounded-md text-neutral-500 flex items-center gap-1  absolute bottom-2 right-2 rounded-br-[16px]",
-                  optimisticResource.view_count > 100 ? " text-neutral-800" : ""
-                )}
-              >
-                <p className="flex items-center gap-1 tracking-tight text-neutral pr-1 text-xs">
-                  {optimisticResource.view_count || data.view_count}
-                </p>
-              </div>
-            </MinimalCardFooter>
-          </MinimalCard>
-        </div>
+              <p className="flex items-center gap-1 tracking-tight text-neutral pr-1 text-xs">
+                {optimisticResource.view_count || data.view_count}
+              </p>
+            </div>
+          </MinimalCardFooter>
+        </MinimalCard>
       </Link>
     </motion.div>
   )

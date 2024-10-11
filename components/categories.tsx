@@ -15,7 +15,7 @@ export function Categories({ categories }: { categories: Category[] }) {
   if (!categories || categories.length === 0) return null
 
   return (
-    <div className="overflow-x-auto whitespace-nowrap p-4 border-b">
+    <div className="overflow-x-auto whitespace-nowrap p-4 border-b flex justify-center">
       <div className="flex space-x-2">
         <Link
           href="/products"
