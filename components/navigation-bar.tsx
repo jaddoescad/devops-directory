@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
 import { BoxIcon, ChevronDown, Hash, PlusIcon, TagIcon, Menu, X } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 
 import { cn, truncateString } from "@/lib/utils"
@@ -13,6 +13,9 @@ import { DirectorySearch } from "./directory-search"
 import { Button } from "./ui/button"
 import * as Popover from '@radix-ui/react-popover'
 import logo from "@/assets/logo.png"
+
+// Add this utility function at the top of the file
+const isMobile = () => window.innerWidth < 640; // Adjust the breakpoint as needed
 
 export function NavigationBar({
   categories,
@@ -29,6 +32,20 @@ export function NavigationBar({
 }) {
   const searchParams = useSearchParams()
   const [isMenuOpen, setIsMenuOpen] = useState(true)
+  const [isMobileView, setIsMobileView] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobileView(isMobile());
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
+  const handleNavItemClick = () => {
+    if (isMobileView) {
+      setIsMenuOpen(false);
+    }
+  };
 
   return (
     <div className="flex">
@@ -48,7 +65,7 @@ export function NavigationBar({
                       href={`/products?category=${category}`}
                       prefetch={false}
                       className="block py-2 px-4 hover:bg-gray-100 rounded-md"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={handleNavItemClick}
                     >
                       <span>{category && truncateString(category, 20)}</span>
                     </Link>
@@ -66,7 +83,7 @@ export function NavigationBar({
                     href={`/products?tag=${tag}`}
                     prefetch={false}
                     className="block py-2 px-4 hover:bg-gray-100 rounded-md"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={handleNavItemClick}
                   >
                     <span>{tag && truncateString(tag, 20)}</span>
                   </Link>
@@ -83,7 +100,7 @@ export function NavigationBar({
                     href={`/products?label=${label}`}
                     prefetch={false}
                     className="block py-2 px-4 hover:bg-gray-100 rounded-md"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={handleNavItemClick}
                   >
                     <span>{label && truncateString(label, 20)}</span>
                   </Link>
