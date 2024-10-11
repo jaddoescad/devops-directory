@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import { Inter } from "next/font/google"
 import "./globals.css"
 import { NavigationBar } from "@/components/navigation-bar"
+import { Footer } from "@/components/footer"
 import { getCachedFilters } from "./actions/cached_actions"
 import { createClient } from "@/db/supabase/server"
 
@@ -34,6 +35,7 @@ export default async function RootLayout({
         >
           {children}
         </NavigationBar>
+        <Footer />
       </body>
     </html>
   )

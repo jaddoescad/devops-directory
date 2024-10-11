@@ -85,10 +85,10 @@ const TailwindMasonryGrid: React.FC<TailwindMasonryGridProps> = ({
   return (
     <div className="flex justify-center w-full">
       <div className="w-full max-w-[1600px]">
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-2">
           {filteredData &&
             filteredData.map((data, index) => (
-              <div key={`${index}-${data.id}`} className="w-[300px]">
+              <div key={`${index}-${data.id}`}>
                 <ResourceCard data={data} order={index} />
               </div>
             ))}
