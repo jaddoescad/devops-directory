@@ -39,7 +39,12 @@ export function DirectorySearch() {
       <InputButton
         hasIcon
         id="search"
-        className={cn("relative pr-10 pl-12 md:py-3 w-full border border-black rounded-md")}
+        className={cn(
+          "relative pr-10 pl-12 md:py-2 w-full rounded-md",
+          "border border-gray-300",
+          "font-normal placeholder:text-gray-400",
+          "text-md"
+        )}
         tabIndex={0}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}

@@ -4,9 +4,6 @@ import { Categories } from "@/components/categories"
 import { ResourceCardGrid } from "../components/directory-card-grid"
 import { getCachedFilters } from "./actions/cached_actions"
 import { getProducts } from "./actions/product"
-import { createClient } from "@/db/supabase/server"
-import { GradientHeading } from "@/components/cult/gradient-heading"
-import { Hash, TagIcon } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 
