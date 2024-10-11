@@ -28,7 +28,7 @@ export function NavigationBar({
   children: React.ReactNode
 }) {
   const searchParams = useSearchParams()
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isMenuOpen, setIsMenuOpen] = useState(true)
 
   return (
     <div className="flex">
