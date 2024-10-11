@@ -63,14 +63,8 @@ export const ResourceCardGrid: React.FC<SEOCardGridProps> = ({
   const pathname = usePathname()
   return (
     <div className="flex flex-col md:items-start gap-4 overflow-hidden pb-4 relative flex-grow">
-      <div
-        className={cn(
-          "p-4 w-full h-full",
-          pathname.includes("/products")
-            ? ""
-            : "bg-white rounded-[2rem] shadow-[0_0_0_1px_rgba(0,0,0,0.1)_inset,0_0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_-0.5px_0.5px_rgba(0,0,0,0.05)_inset,0_1px_2px_rgba(0,0,0,0.1)]"
-        )}
-      >
+      {children}
+      <div className="w-full h-full">
         <Suspense fallback={<div>Loading...</div>}>
           <div className="relative h-full">
             <TailwindMasonryGrid filteredData={sortedData} />
