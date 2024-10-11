@@ -49,27 +49,13 @@ export const ProductDetails = ({ product }: { product: Product }) => (
     <div className="w-full gap-8 py-6 relative items-center">
       <div className="grid grid-cols-6 md:grid-cols-12 gap-8 w-full">
         <div className="space-y-6 col-span-6 md:col-span-5 md:mt-12 z-10">
-          <Breadcrumb>
-            <BreadcrumbItem>
-              <BreadcrumbLink href="/">Products</BreadcrumbLink>/
-              <BreadcrumbLink href={`/products/${product.id}`}>
-                {product.codename.substring(0, 20)}
-              </BreadcrumbLink>
-            </BreadcrumbItem>
-          </Breadcrumb>
-          <CardTitle className="text-6xl tracking-tighter font-extrabold text-neutral-900">
-            {product.punchline}
+          <CardTitle className="text-4xl tracking-tighter font-extrabold text-neutral-900">
+            {product.codename}
           </CardTitle>
           <CardDescription className="md:text-xl text-lg tracking-tight text-neutral-800 text-balance flex gap-2 items-center ">
             <Blocks className="stroke-1 size-8" />{" "}
             <span className="flex-wrap">{product.categories.name}</span>
           </CardDescription>
-          {product.tags.length >= 1 && (
-            <CardDescription className="md:text-xl text-lg tracking-tight text-neutral-800 text-balance flex gap-2 items-center ">
-              <Tag className="stroke-1 size-8" />{" "}
-              <span className="flex-wrap">{product.tags.join(", ")}</span>
-            </CardDescription>
-          )}
 
           <Link
             href={`/products`}
