@@ -99,9 +99,11 @@ export function NavigationBar({
         <nav className="p-4">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
             <div className="flex items-center space-x-4 w-full sm:w-auto">
-              <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-                <Menu />
-              </Button>
+              {!isMenuOpen && (
+                <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(true)}>
+                  <Menu />
+                </Button>
+              )}
               <Link href="/" className="flex items-center flex-shrink-0">
                 <Image src={logo} alt="Logo" width={175} height={100} className="w-[175px] h-auto" />
               </Link>
