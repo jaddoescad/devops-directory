@@ -1,15 +1,27 @@
+import { ReactElement } from "react"
 import { FadeIn } from "@/components/cult/fade-in"
 import { NavigationBar } from "@/components/navigation-bar"
 import { ResourceCardGrid } from "../components/directory-card-grid"
 import { getCachedFilters } from "./actions/cached_actions"
-import { getProductsByCategory } from "./actions/product"
+import { getProducts } from "./actions/product"
 import { createClient } from "@/db/supabase/server"
 
-async function Page() {
+export const dynamic = "force-dynamic"
+
+async function Page({
+  searchParams,
+}: {
+  searchParams: {
+    category?: string
+    label?: string
+    tag?: string
+  }
+}): Promise<ReactElement> {
   const supabase = createClient()
-  
-  const [groupedProducts, filters, { data: { user } }] = await Promise.all([
-    getProductsByCategory(),
+  const { category, label, tag } = searchParams
+
+  const [data, filters, { data: { user } }] = await Promise.all([
+    getProducts(undefined, category, label, tag),
     getCachedFilters(),
     supabase.auth.getUser()
   ])
@@ -22,13 +34,8 @@ async function Page() {
       user={user}
     >
       <FadeIn className="flex-grow">
-        <div className="container mx-auto px-4">
-          {Object.entries(groupedProducts).map(([category, products]) => (
-            <div key={category} className="mb-12">
-              <h2 className="text-2xl font-bold mb-6">{category}</h2>
-              <ResourceCardGrid sortedData={products} />
-            </div>
-          ))}
+        <div className="max-w-full pt-4">
+          <ResourceCardGrid sortedData={data} filteredFeaturedData={null} />
         </div>
       </FadeIn>
     </NavigationBar>
