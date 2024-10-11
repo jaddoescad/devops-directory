@@ -97,8 +97,8 @@ export function NavigationBar({
       {/* Main Content */}
       <div className={`flex-1 transition-margin duration-300 ease-in-out ${isMenuOpen ? 'ml-64' : ''}`}>
         <nav className="p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0">
+            <div className="flex items-center space-x-4 w-full sm:w-auto">
               <Button variant="ghost" size="sm" onClick={() => setIsMenuOpen(!isMenuOpen)}>
                 <Menu />
               </Button>
@@ -107,7 +107,11 @@ export function NavigationBar({
               </Link>
             </div>
             
-            <div className="flex items-center space-x-2">
+            <div className="w-full sm:w-auto">
+              <DirectorySearch />
+            </div>
+            
+            <div className="flex items-center space-x-2 w-full sm:w-auto justify-end">
               <Button variant="default" size="sm" asChild className="bg-black text-white hover:bg-black/90">
                 <Link href="/submit">Submit</Link>
               </Button>
