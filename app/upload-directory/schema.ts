@@ -8,12 +8,12 @@ export const schema = z.object({
   punchline: z
     .string()
     .trim()
-    .max(30, { message: "Punchline must be 30 characters or less." }),
+    .max(100, { message: "Punchline must be 30 characters or less." }),
   description: z
     .string()
     .trim()
     .min(1, { message: "Description is required." })
-    .max(280, { message: "Description must be 280 characters or less." }),
+    .max(500, { message: "Description must be 280 characters or less." }),
   categories: z.string().uuid({ message: "Please select a valid existing category." }),
   images: z.any(),
   logo_src: z.any().optional(),
