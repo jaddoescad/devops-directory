@@ -48,7 +48,7 @@ export const getProducts = cache(
       .from("products")
       .select(`
         *,
-        categories:categories(id, name)
+        categories:categories(id, name, code)
       `)
 
     if (searchTerm) {
@@ -78,7 +78,8 @@ export const getProducts = cache(
 
     return data.map(product => ({
       ...product,
-      category_name: product.categories?.name
+      category_name: product.categories?.name,
+      category_code: product.categories?.code
     }))
   }
 )

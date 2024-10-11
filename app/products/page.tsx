@@ -6,11 +6,18 @@ import { Separator } from "@/components/ui/separator";
 import { FadeIn } from "@/components/cult/fade-in";
 import { GradientHeading } from "@/components/cult/gradient-heading";
 import { ResourceCardGrid } from "@/components/directory-card-grid"
+import { Categories } from "@/components/categories"
 
 import { getCachedFilters, getCategoryNameFromCode } from "../actions/cached_actions"
 import { getProducts } from "../actions/product"
 
 export const dynamic = "force-dynamic"
+
+type Category = {
+  id: string
+  name: string
+  code: string
+}
 
 export default async function ProductsPage({
   searchParams,
@@ -22,8 +29,10 @@ export default async function ProductsPage({
   }
 }): Promise<ReactElement> {
   const { category: categoryCode, label, tag } = searchParams
-  const data = await getProducts(undefined, categoryCode, label, tag)
-  let filters = await getCachedFilters()
+  const [data, filters] = await Promise.all([
+    getProducts(undefined, categoryCode, label, tag),
+    getCachedFilters()
+  ])
 
   // Fetch the category name using the new function
   const categoryName = categoryCode 
@@ -32,11 +41,9 @@ export default async function ProductsPage({
 
   return (
     <>
+      <Categories categories={filters.categories as Category[]} />
       <div className="max-w-full pt-4">
         <FadeIn>
-          {categoryName && (
-            <h1 className="text-4xl font-bold mb-6 text-center">{categoryName}</h1>
-          )}
           <ResourceCardGrid sortedData={data} filteredFeaturedData={null}>
             {label || tag ? (
               <div className="md:mr-auto mx-auto flex flex-col items-center md:items-start">
