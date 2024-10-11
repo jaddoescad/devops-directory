@@ -5,6 +5,7 @@ import { NavigationBar } from "@/components/navigation-bar"
 import { Footer } from "@/components/footer"
 import { getCachedFilters } from "./actions/cached_actions"
 import { createClient } from "@/db/supabase/server"
+import NextTopLoader from 'nextjs-toploader'
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -28,6 +29,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        <NextTopLoader />
         <NavigationBar 
           labels={filters.labels} 
           tags={filters.tags}

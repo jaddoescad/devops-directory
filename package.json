@@ -46,6 +46,7 @@
     "lucide-react": "^0.378.0",
     "next": "latest",
     "next-themes": "^0.3.0",
+    "nextjs-toploader": "^3.7.15",
     "postcss": "8.4.33",
     "progress": "^2.0.3",
     "react": "latest",
