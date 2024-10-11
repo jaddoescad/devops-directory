@@ -11,7 +11,9 @@ type FilterData = {
 }
 
 type CategoryData = {
+  id: string
   name: string
+  code: string
 }
 
 type LabelData = {
@@ -29,7 +31,7 @@ const client = createClient(
 async function getFilters(): Promise<FilterData> {
   const { data: categoriesData, error: categoriesError } = await client
     .from("categories")
-    .select("name")
+    .select("id, name, code")
 
   const { data: labelsData, error: labelsError } = await client
     .from("labels")
@@ -52,9 +54,11 @@ async function getFilters(): Promise<FilterData> {
   const unique = (array: string[]) => [...new Set(array)]
 
   const categories = categoriesData
-    ? unique(
-        categoriesData.map((item: CategoryData) => item.name).filter(Boolean)
-      )
+    ? categoriesData.map((item: CategoryData) => ({
+        id: item.id,
+        name: item.name,
+        code: item.code
+      })).filter(item => item.name && item.code)
     : []
 
   const labels = labelsData
@@ -75,4 +79,23 @@ export const getCachedFilters = unstable_cache(
   },
   ["product-filters"],
   { tags: [`product_filters`], revalidate: 9000 }
+)
+
+export const getCategoryNameFromCode = unstable_cache(
+  async (code: string): Promise<string | null> => {
+    const { data, error } = await client
+      .from("categories")
+      .select("name")
+      .eq("code", code)
+      .single()
+
+    if (error) {
+      console.error("Error fetching category name:", error)
+      return null
+    }
+
+    return data?.name || null
+  },
+  ["category-name"],
+  { tags: [`category_name`], revalidate: 9000 }
 )

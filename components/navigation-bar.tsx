@@ -17,6 +17,12 @@ import logo from "@/assets/logo.png"
 // Add this utility function at the top of the file
 const isMobile = () => window.innerWidth < 640; // Adjust the breakpoint as needed
 
+type Category = {
+  id: string
+  name: string
+  code: string
+}
+
 export function NavigationBar({
   categories,
   labels,
@@ -24,7 +30,7 @@ export function NavigationBar({
   user,
   children
 }: {
-  categories?: string[]
+  categories?: Category[]
   labels?: string[]
   tags?: string[]
   user: any
@@ -59,15 +65,15 @@ export function NavigationBar({
             <div className="mb-4">
               <h2 className="font-semibold mb-2">Categories</h2>
               <ul className="space-y-1">
-                {categories.map((category, index) => (
-                  <li key={`category-${index}-${category}`}>
+                {categories.map((category) => (
+                  <li key={`category-${category.id}`}>
                     <Link
-                      href={`/products?category=${category}`}
+                      href={`/products?category=${category.code}`}
                       prefetch={false}
                       className="block py-2 px-4 hover:bg-gray-100 rounded-md"
                       onClick={handleNavItemClick}
                     >
-                      <span>{category && truncateString(category, 20)}</span>
+                      <span>{category.name && truncateString(category.name, 20)}</span>
                     </Link>
                   </li>
                 ))}

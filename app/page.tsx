@@ -8,6 +8,12 @@ import { createClient } from "@/db/supabase/server"
 
 export const dynamic = "force-dynamic"
 
+type Category = {
+  id: string
+  name: string
+  code: string
+}
+
 async function Page({
   searchParams,
 }: {
@@ -26,9 +32,11 @@ async function Page({
     supabase.auth.getUser()
   ])
 
+  console.log(data)
+
   return (
     <NavigationBar 
-      categories={filters.categories} 
+      categories={filters.categories as Category[]} 
       labels={filters.labels} 
       tags={filters.tags}
       user={user}
