@@ -147,7 +147,7 @@ export const SubmitTool = () => {
         }}
       >
         <GradientHeading size="xs">
-          Let's start with your personal deets
+          {"Let's start with your personal deets"}
         </GradientHeading>
         <div className="flex flex-wrap gap-1 md:gap-2">
           <FormField
@@ -199,9 +199,9 @@ export const SubmitTool = () => {
           name="codename"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Your Course name</FormLabel>
+              <FormLabel>Your Course&apos;s name</FormLabel>
               <FormControl>
-                <Input placeholder="Your course's codename" {...field} />
+                <Input placeholder="Your course&apos;s codename" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -212,9 +212,9 @@ export const SubmitTool = () => {
           name="punchline"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Your course's punchline (&lt;10 words)</FormLabel>
+              <FormLabel>Your course&apos;s punchline (&lt;10 words)</FormLabel>
               <FormControl>
-                <Input placeholder="Your course's punchline" {...field} />
+                <Input placeholder="Your course&apos;s punchline" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

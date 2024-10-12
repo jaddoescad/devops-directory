@@ -1,6 +1,7 @@
 import { getAllPosts } from "@/lib/sanity/queries"
 import Link from "next/link"
 import { FadeIn } from "@/components/cult/fade-in"
+import Image from "next/image"
 
 interface Post {
   _id: string;
@@ -25,7 +26,14 @@ export default async function BlogIndex() {
             <Link href={`/blog/${post.slug.current}`} key={post._id} className="block">
               <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow h-full flex flex-col">
                 {post.coverImage && (
-                  <img src={post.coverImage} alt={post.title} className="w-full h-48 object-cover" />
+                  <div className="relative w-full h-48">
+                    <Image
+                      src={post.coverImage}
+                      alt={post.title}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
                 )}
                 <div className="p-6 flex-grow flex flex-col justify-between">
                   <div>
