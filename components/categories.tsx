@@ -13,7 +13,7 @@ export function Categories({ categories }: { categories: Category[] }) {
   const searchParams = useSearchParams()
 
   if (!categories || categories.length === 0) return null
-
+  console.log(categories);
   return (
     <div className="overflow-x-auto whitespace-nowrap p-4 border-b flex justify-center">
       <div className="flex space-x-2">

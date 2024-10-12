@@ -5,7 +5,7 @@ import { unstable_cache } from "next/cache"
 import { createClient } from "@supabase/supabase-js"
 
 type FilterData = {
-  categories: string[]
+  categories: { id: string; code: string, name: string }[]
 }
 
 type CategoryData = {
@@ -23,6 +23,8 @@ async function getFilters(): Promise<FilterData> {
   const { data: categoriesData, error: categoriesError } = await client
     .from("categories")
     .select("id, name, code")
+ 
+    
 
   if (categoriesError) {
     console.error(
@@ -41,14 +43,16 @@ async function getFilters(): Promise<FilterData> {
       })).filter(item => item.name && item.code)
     : []
 
+  console.log("categories", categories);
+
   return {
-    categories: categories.map(c => c.name)
+    categories: categories.map(({ id, name, code }) => ({ id, name, code }))
   }
 }
 
 export const getCachedFilters = unstable_cache(
   async (): Promise<FilterData> => {
-    const { categories} = await getFilters()
+    const { categories } = await getFilters()
     return { categories }
   },
   ["product-filters"],
