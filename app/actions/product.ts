@@ -62,9 +62,8 @@ export const getProducts = cache(
       console.error("Error searching resources:", error)
       return []
     }
-    
 
-    return data
+    return data || []
   }
 )
 
