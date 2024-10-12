@@ -13,11 +13,13 @@ export function NavigationBar({
   labels,
   tags,
   user,
+  blogEnabled,
   children
 }: {
   labels?: string[]
   tags?: string[]
   user: any
+  blogEnabled?: boolean
   children: React.ReactNode
 }) {
   return (
@@ -34,6 +36,15 @@ export function NavigationBar({
           </div>
           
           <div className="flex items-center space-x-2">
+            {blogEnabled && (
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                asChild
+              >
+                <Link href="/blog">Blog</Link>
+              </Button>
+            )}
             <Button 
               variant="default" 
               size="sm" 

@@ -43,6 +43,7 @@ export default async function RootLayout({
           labels={filters.labels} 
           tags={filters.tags}
           user={user}
+          blogEnabled={true}
         >
           {children}
         </NavigationBar>
