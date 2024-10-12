@@ -173,7 +173,7 @@ export async function onSubmitToolAction(
     }
 
     console.log("Inserting product data")
-    const { error } = await db.from("products").insert([productData]).select()
+    const { error } = await db.from("devops_courses").insert([productData]).select()
 
     if (error) {
       console.error(`Error inserting product data: ${error.message}`)

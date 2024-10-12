@@ -6,25 +6,25 @@ const footerLinks = [
   {
     title: "Quick Links",
     links: [
-      { name: "Home", href: "/" },
-      { name: "Blog", href: "/blog" },
-      { name: "Submit Course", href: "/submit" },
+      { id: "home", name: "Home", href: "/" },
+      { id: "blog", name: "Blog", href: "/blog" },
+      { id: "submit", name: "Submit Course", href: "/submit" },
     ],
   },
   {
     title: "Other directories",
     links: [
-      { name: "-", href: "/" },
-      { name: "-", href: "/" },
-      { name: "-", href: "/" },
+      { id: "other1", name: "-", href: "/" },
+      { id: "other2", name: "-", href: "/" },
+      { id: "other3", name: "-", href: "/" },
     ],
   },
   {
     title: "--",
     links: [
-      { name: "-", href: "/" },
-      { name: "-", href: "/" },
-      { name: "-", href: "/" },
+      { id: "misc1", name: "-", href: "/" },
+      { id: "misc2", name: "-", href: "/" },
+      { id: "misc3", name: "-", href: "/" },
     ],
   },
 ]
@@ -42,7 +42,7 @@ export function Footer() {
             <h3 className="font-semibold mb-4">{column.title}</h3>
             <ul className="space-y-2">
               {column.links.map((link) => (
-                <li key={link.name}>
+                <li key={link.id}>
                   <Link href={link.href} className="text-sm text-gray-600 hover:text-gray-900">
                     {link.name}
                   </Link>
@@ -55,4 +55,3 @@ export function Footer() {
     </footer>
   )
 }
-

@@ -21,6 +21,7 @@ const nextConfig = {
         pathname: "/storage/v1/object/public/product-logos/**/**",
       },
     ],
+    domains: ['cdn.sanity.io'],
   },
 }
 

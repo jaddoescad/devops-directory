@@ -86,18 +86,6 @@ export const ProductDetails = ({ product }: { product: Product }) => (
             {product.description}
           </CardDescription>
 
-          <div className="md:text-xl sm:text-lg tracking-tight text-neutral-800 text-balance flex gap-2 items-center flex-wrap text-sm">
-            {product.labels[0] !== "unlabeled" &&
-              product.labels.map((label, index) => (
-                <Link
-                  href={`/products?label=${label}`}
-                  key={index}
-                  className="flex-wrap flex gap-1"
-                >
-                  <Hash className="stroke-1 size-4" /> <span>{label}</span>
-                </Link>
-              ))}
-          </div>
 
           {product.product_website && (
             <Button

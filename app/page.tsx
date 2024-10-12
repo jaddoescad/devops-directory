@@ -4,30 +4,26 @@ import { Categories } from "@/components/categories"
 import { ResourceCardGrid } from "../components/directory-card-grid"
 import { getCachedFilters } from "./actions/cached_actions"
 import { getProducts } from "./actions/product"
-import { Category } from "@/lib/types"
 
 export const dynamic = "force-dynamic"
-
 
 async function Page({
   searchParams,
 }: {
   searchParams: {
     category?: string
-    label?: string
-    tag?: string
   }
 }): Promise<ReactElement> {
-  const { category: categoryCode } = searchParams
+  const { category } = searchParams
 
   const [data, filters] = await Promise.all([
-    getProducts(undefined, categoryCode),
+    getProducts(undefined, category),
     getCachedFilters(),
   ])
 
   return (
     <>
-      <Categories categories={filters.categories as unknown as Category[]} />
+      <Categories categories={filters.categories} />
       <FadeIn className="flex-grow">
         <div className="max-w-full pt-4">
           <ResourceCardGrid sortedData={data} filteredFeaturedData={null} />

@@ -3,7 +3,6 @@
 import Link from "next/link"
 import Image from "next/image"
 
-import { UserAvatar } from "./avatar-dropdown"
 import { DirectorySearch } from "./directory-search"
 import { Button } from "./ui/button"
 import logo from "@/assets/logo.png"
@@ -46,15 +45,8 @@ export function NavigationBar({
               asChild 
               className="bg-[#0097b2] hover:bg-[#0097b2]/90 text-white !bg-none !border-none"
             >
-              <Link href="/submit">Submit</Link>
+              <Link href="/submit">Submit Course</Link>
             </Button>
-            {user ? (
-              <UserAvatar user={user} />
-            ) : (
-              <Button variant="outline" size="sm" asChild>
-                <Link href="/login">Login</Link>
-              </Button>
-            )}
           </div>
         </div>
         <div className="md:hidden mt-4">

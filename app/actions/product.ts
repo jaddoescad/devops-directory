@@ -8,15 +8,15 @@ import { createClient } from "@/db/supabase/server"
 export async function getFilters() {
   const db = createClient()
   const { data: categoriesData, error: categoriesError } = await db
-    .from("products")
+    .from("devops_courses")
     .select("categories")
 
   const { data: labelsData, error: labelsError } = await db
-    .from("products")
+    .from("devops_courses")
     .select("labels")
 
   const { data: tagsData, error: tagsError } = await db
-    .from("products")
+    .from("devops_courses")
     .select("tags")
 
   if (categoriesError || labelsError || tagsError) {
@@ -39,17 +39,12 @@ export async function getFilters() {
 export const getProducts = cache(
   async (
     searchTerm?: string,
-    category?: string,
-    label?: string,
-    tag?: string
+    category?: string
   ) => {
     const db = createClient()
     let query = db
-      .from("products")
-      .select(`
-        *,
-        categories!inner(id, name, code)
-      `)
+      .from("devops_courses")
+      .select('*')
 
     if (searchTerm) {
       query = query.or(
@@ -58,15 +53,7 @@ export const getProducts = cache(
     }
 
     if (category) {
-      query = query.eq('categories.code', category)
-    }
-
-    if (label) {
-      query = query.contains("labels", [label])
-    }
-
-    if (tag) {
-      query = query.contains("tags", [tag])
+      query = query.contains('categories', [category])
     }
 
     const { data, error } = await query
@@ -75,19 +62,16 @@ export const getProducts = cache(
       console.error("Error searching resources:", error)
       return []
     }
+    
 
-    return data.map(product => ({
-      ...product,
-      category_name: product.categories?.name,
-      category_code: product.categories?.code
-    }))
+    return data
   }
 )
 
 export const getProductsByCategory = cache(async () => {
   const db = createClient()
   const { data, error } = await db
-    .from("products")
+    .from("devops_courses")
     .select(`
       *,
       categories:categories(id, name)
@@ -118,11 +102,8 @@ export async function getProductById(id?: string) {
   const supabase = createClient()
 
   const { data, error } = await supabase
-    .from("products")
-    .select(`
-      *,
-      categories:categories(name)
-    `)
+    .from("devops_courses")
+    .select('*')
     .eq("id", id)
     .single()
 
@@ -131,10 +112,7 @@ export async function getProductById(id?: string) {
     return null
   }
 
-  return {
-    ...data,
-    category_name: data.categories?.name
-  }
+  return data
 }
 
 export async function incrementClickCount(id: string) {

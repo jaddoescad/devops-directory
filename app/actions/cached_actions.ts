@@ -8,46 +8,36 @@ type FilterData = {
   categories: { id: string; code: string, name: string }[]
 }
 
-type CategoryData = {
-  id: string
-  name: string
-  code: string
-}
-
-
 const client = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
-async function getFilters(): Promise<FilterData> {
-  const { data: categoriesData, error: categoriesError } = await client
-    .from("categories")
-    .select("id, name, code")
- 
-    
 
-  if (categoriesError) {
+async function getFilters(): Promise<FilterData> {
+  const { data: coursesData, error: coursesError } = await client
+    .from("devops_courses")
+    .select("categories")
+
+  if (coursesError) {
     console.error(
       "Error fetching filters:",
-      categoriesError
+      coursesError
     )
     return { categories: [] }
   }
 
+  const allCategories = coursesData.flatMap(course => course.categories)
+  const uniqueCategories = [...new Set(allCategories)]
 
-  const categories = categoriesData
-    ? categoriesData.map((item: CategoryData) => ({
-        id: item.id,
-        name: item.name,
-        code: item.code
-      })).filter(item => item.name && item.code)
-    : []
+  const categories = uniqueCategories.map((category, index) => ({
+    id: index.toString(),
+    name: category,
+    code: category.toLowerCase().replace(/\s+/g, '-')
+  }))
 
   console.log("categories", categories);
 
-  return {
-    categories: categories.map(({ id, name, code }) => ({ id, name, code }))
-  }
+  return { categories }
 }
 
 export const getCachedFilters = unstable_cache(
@@ -61,18 +51,9 @@ export const getCachedFilters = unstable_cache(
 
 export const getCategoryNameFromCode = unstable_cache(
   async (code: string): Promise<string | null> => {
-    const { data, error } = await client
-      .from("categories")
-      .select("name")
-      .eq("code", code)
-      .single()
-
-    if (error) {
-      console.error("Error fetching category name:", error)
-      return null
-    }
-
-    return data?.name || null
+    const { categories } = await getFilters()
+    const category = categories.find(cat => cat.code === code)
+    return category ? category.name : null
   },
   ["category-name"],
   { tags: [`category_name`], revalidate: 9000 }
