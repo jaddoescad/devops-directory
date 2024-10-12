@@ -33,13 +33,15 @@ import { createClient } from "@/db/supabase/client"
 import { StyledButton } from "../login/submit-button"
 import { onSubmitToolAction } from "./action"
 import { schema } from "./schema"
+import { Category } from "@/lib/types"
 
 // To trigger async toast
 const p = () => new Promise((resolve) => setTimeout(() => resolve(""), 900))
 
 export const SubmitTool = () => {
   const [loading, setLoading] = useState(false)
-  const [categories, setCategories] = useState([])
+  const [categories, setCategories] = useState<Category[]>([])
+
   const router = useRouter()
 
   const [state, formAction] = useFormState(onSubmitToolAction, {
@@ -79,7 +81,7 @@ export const SubmitTool = () => {
       if (error) {
         console.error('Error fetching categories:', error)
       } else {
-        setCategories(data)
+        setCategories(data as Category[])
       }
     }
 
