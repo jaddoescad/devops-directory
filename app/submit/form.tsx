@@ -30,6 +30,7 @@ export const SubmitTool = () => {
   const [state, formAction] = useFormState(onSubmitToolAction, {
     message: "",
     issues: [],
+    fields: {},
   })
 
   const form = useForm<z.output<typeof schema>>({
@@ -77,10 +78,8 @@ export const SubmitTool = () => {
           }
           setLoading(true)
           setError(null)
-          form.handleSubmit(async (data) => {
-            let formData = new FormData(formRef.current!)
-            await formAction(formData)
-          })(evt)
+          const formData = new FormData(formRef.current!)
+          formAction(formData)
         }}
       >
         <GradientHeading size="xs">

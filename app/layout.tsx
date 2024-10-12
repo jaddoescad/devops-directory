@@ -55,8 +55,6 @@ export default async function RootLayout({
           speed={200}
         />
         <NavigationBar 
-          labels={filters.labels} 
-          tags={filters.tags}
           user={user}
           blogEnabled={true}
         >

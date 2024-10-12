@@ -1,6 +1,4 @@
 import { ReactElement } from "react";
-import { Search } from "lucide-react";
-import { GradientHeading } from "@/components/cult/gradient-heading";
 import { ResourceCardGrid } from "@/components/directory-card-grid"
 import { getProducts } from "../actions/product"
 

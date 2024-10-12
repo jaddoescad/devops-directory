@@ -13,8 +13,6 @@ export function NavigationBar({
   blogEnabled,
   children
 }: {
-  labels?: string[]
-  tags?: string[]
   user: any
   blogEnabled?: boolean
   children: React.ReactNode

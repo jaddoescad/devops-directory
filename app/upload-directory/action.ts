@@ -4,7 +4,7 @@ import "server-only"
 import { revalidatePath, revalidateTag } from "next/cache"
 import { createClient } from "@/db/supabase/server"
 import { anthropic } from "@ai-sdk/anthropic"
-import { generateObject } from "ai"
+import { generateObject, LanguageModelV1 } from "ai"
 
 import { enrichmentSchema, schema } from "./schema"
 
@@ -136,7 +136,7 @@ export async function onSubmitToolAction(
         parsed.data.description
       )
       const { object: enrichment } = await generateObject({
-        model: config.aiModel,
+        model: config.aiModel as LanguageModelV1,
         schema: enrichmentSchema,
         prompt: enrichmentPrompt,
       })

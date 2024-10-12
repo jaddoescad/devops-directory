@@ -4,7 +4,7 @@ import { FadeIn } from "@/components/cult/fade-in";
 import { ResourceCardGrid } from "@/components/directory-card-grid"
 import { Categories } from "@/components/categories"
 
-import { getCachedFilters, getCategoryNameFromCode } from "../actions/cached_actions"
+import { getCachedFilters } from "../actions/cached_actions"
 import { getProducts } from "../actions/product"
 
 export const dynamic = "force-dynamic"
@@ -33,7 +33,7 @@ export default async function ProductsPage({
 
   return (
     <>
-      <Categories categories={filters.categories as Category[]} />
+      <Categories categories={filters.categories as unknown as Category[]} />
       <div className="max-w-full pt-4">
         <FadeIn>
           <ResourceCardGrid sortedData={data} filteredFeaturedData={null} />

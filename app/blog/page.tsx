@@ -2,6 +2,17 @@ import { getAllPosts } from "@/lib/sanity/queries"
 import Link from "next/link"
 import { FadeIn } from "@/components/cult/fade-in"
 
+interface Post {
+  _id: string;
+  slug: {
+    current: string;
+  };
+  coverImage?: string;
+  title: string;
+  excerpt: string;
+  publishedAt: string;
+}
+
 export default async function BlogIndex() {
   const posts = await getAllPosts()
 
@@ -10,7 +21,7 @@ export default async function BlogIndex() {
       <div className="max-w-6xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
         <h1 className="text-4xl font-bold mb-8 text-center">Blog Posts</h1>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {posts.map((post) => (
+          {posts.map((post: Post) => (
             <Link href={`/blog/${post.slug.current}`} key={post._id} className="block">
               <div className="border rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow h-full flex flex-col">
                 {post.coverImage && (
