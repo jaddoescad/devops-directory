@@ -6,8 +6,6 @@ import { createClient } from "@supabase/supabase-js"
 
 type FilterData = {
   categories: string[]
-  labels: string[]
-  tags: string[]
 }
 
 type CategoryData = {
@@ -16,13 +14,6 @@ type CategoryData = {
   code: string
 }
 
-type LabelData = {
-  name: string
-}
-
-type TagData = {
-  name: string
-}
 
 const client = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -33,25 +24,14 @@ async function getFilters(): Promise<FilterData> {
     .from("categories")
     .select("id, name, code")
 
-  const { data: labelsData, error: labelsError } = await client
-    .from("labels")
-    .select("name")
-
-  const { data: tagsData, error: tagsError } = await client
-    .from("tags")
-    .select("name")
-
-  if (categoriesError || labelsError || tagsError) {
+  if (categoriesError) {
     console.error(
       "Error fetching filters:",
-      categoriesError,
-      labelsError,
-      tagsError
+      categoriesError
     )
-    return { categories: [], labels: [], tags: [] }
+    return { categories: [] }
   }
 
-  const unique = (array: string[]) => [...new Set(array)]
 
   const categories = categoriesData
     ? categoriesData.map((item: CategoryData) => ({
@@ -61,21 +41,15 @@ async function getFilters(): Promise<FilterData> {
       })).filter(item => item.name && item.code)
     : []
 
-  const labels = labelsData
-    ? unique(labelsData.map((item: LabelData) => item.name).filter(Boolean))
-    : []
-
-  const tags = tagsData
-    ? unique(tagsData.map((item: TagData) => item.name).filter(Boolean))
-    : []
-
-  return { categories, labels, tags }
+  return {
+    categories: categories.map(c => c.name)
+  }
 }
 
 export const getCachedFilters = unstable_cache(
   async (): Promise<FilterData> => {
-    const { categories, labels, tags } = await getFilters()
-    return { categories, labels, tags }
+    const { categories} = await getFilters()
+    return { categories }
   },
   ["product-filters"],
   { tags: [`product_filters`], revalidate: 9000 }

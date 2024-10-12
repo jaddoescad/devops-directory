@@ -1,15 +1,6 @@
 import { PropsWithChildren } from "react"
-import { getCachedFilters } from "../actions/cached_actions"
-import { createClient } from "@/db/supabase/server"
 
 export default async function AccountLayout({ children }: PropsWithChildren) {
-  const supabase = createClient()
-  
-  // Fetch filters and user in parallel
-  const [filters, { data: { user } }] = await Promise.all([
-    getCachedFilters(),
-    supabase.auth.getUser()
-  ])
 
   return (
     <div className="min-h-screen flex flex-col">

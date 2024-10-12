@@ -1,11 +1,9 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
 import { createClient } from "@/db/supabase/client"
 import { User } from "@supabase/supabase-js"
 import { toast } from "sonner"
-import { Edit2Icon, SaveIcon } from "lucide-react"
+import { Edit2Icon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -15,7 +13,6 @@ import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, Di
 import { SubmitButton } from "../login/submit-button"
 
 export function AccountForm({ user }: { user: User }) {
-  const router = useRouter()
 
   const handleResetPassword = async (formData: FormData) => {
     const email = formData.get("email") as string

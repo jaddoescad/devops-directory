@@ -1,7 +1,6 @@
 "use client"
 
 import Link from "next/link"
-import { PlusIcon } from "lucide-react"
 import Image from "next/image"
 
 import { UserAvatar } from "./avatar-dropdown"
@@ -10,8 +9,6 @@ import { Button } from "./ui/button"
 import logo from "@/assets/logo.png"
 
 export function NavigationBar({
-  labels,
-  tags,
   user,
   blogEnabled,
   children

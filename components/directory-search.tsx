@@ -1,7 +1,7 @@
 "use client"
 
 import { useTransition, useState } from "react"
-import { usePathname, useRouter } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { AnimatePresence } from "framer-motion"
 
 import { cn } from "@/lib/utils"
@@ -11,12 +11,11 @@ import { IconSpinner } from "./ui/icons"
 
 export function DirectorySearch() {
   let router = useRouter()
-  let pathname = usePathname()
 
   let [isPending, startTransition] = useTransition()
   let [searchTerm, setSearchTerm] = useState("")
 
-  let handleSearch = (term: string) => {
+  const handleSearch = (term: string) => {
     if (term) {
       startTransition(() => {
         router.push(`/search?q=${encodeURIComponent(term)}`)
