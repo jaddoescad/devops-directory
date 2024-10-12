@@ -1,10 +1,6 @@
 import { ReactElement } from "react";
-import { BoxIcon, Hash, Search, TagIcon } from "lucide-react";
 
-import { Badge } from "@/components/ui/badge";
-import { Separator } from "@/components/ui/separator";
 import { FadeIn } from "@/components/cult/fade-in";
-import { GradientHeading } from "@/components/cult/gradient-heading";
 import { ResourceCardGrid } from "@/components/directory-card-grid"
 import { Categories } from "@/components/categories"
 

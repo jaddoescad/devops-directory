@@ -4,27 +4,27 @@ import logo from "@/assets/logo.png"
 
 const footerLinks = [
   {
-    title: "Company",
+    title: "Quick Links",
     links: [
-      { name: "About", href: "/about" },
-      { name: "Careers", href: "/careers" },
-      { name: "Contact", href: "/contact" },
+      { name: "Home", href: "/" },
+      { name: "Blog", href: "/blog" },
+      { name: "Submit Course", href: "/submit" },
     ],
   },
   {
     title: "Other directories",
     links: [
-      { name: "Blog", href: "/blog" },
-      { name: "Newsletter", href: "/newsletter" },
-      { name: "Events", href: "/events" },
+      { name: "-", href: "/" },
+      { name: "-", href: "/" },
+      { name: "-", href: "/" },
     ],
   },
   {
     title: "--",
     links: [
-      { name: "Terms", href: "/terms" },
-      { name: "Privacy", href: "/privacy" },
-      { name: "Cookies", href: "/cookies" },
+      { name: "-", href: "/" },
+      { name: "-", href: "/" },
+      { name: "-", href: "/" },
     ],
   },
 ]
@@ -35,7 +35,7 @@ export function Footer() {
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-8">
         <div className="flex flex-col items-start">
           <Image src={logo} alt="Logo" width={150} height={50} className="w-[150px] h-auto mb-4" />
-          <p className="text-sm text-gray-600">© 2023 Your Company. All rights reserved.</p>
+          <p className="text-sm text-gray-600">© 2023 All Devops Courses. All rights reserved.</p>
         </div>
         {footerLinks.map((column) => (
           <div key={column.title}>
